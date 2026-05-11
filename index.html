@@ -39,6 +39,9 @@
           <h2>Учасники</h2>
           <div id="playersList" class="players-list"></div>
 
+          <details class="mobile-collapse" data-mobile-collapse>
+            <summary>Кубики та статус</summary>
+            <div class="mobile-collapse-body">
           <div class="dice-card">
             <div>
               <p class="label-text">Кубики dunchoff</p>
@@ -55,6 +58,8 @@
           </div>
 
           <div id="playerSummary" class="summary-list"></div>
+            </div>
+          </details>
 
           <section id="reviewPanel" class="review-panel" data-auth-control>
             <h3>Відгук на поле</h3>
@@ -104,27 +109,36 @@
 
       <section class="bottom-grid">
         <article class="panel">
+          <details class="mobile-collapse" data-mobile-collapse>
+            <summary>Картки dunchoff</summary>
           <div class="panel-title-row">
             <h2>Картки dunchoff</h2>
             <button id="drawCardBtn" class="ghost-button" type="button" data-auth-control>Витягнути</button>
           </div>
           <div id="cardsList" class="cards-list"></div>
+          </details>
         </article>
 
         <article class="panel">
+          <details class="mobile-collapse" data-mobile-collapse>
+            <summary>Картки чату</summary>
           <div class="panel-title-row">
             <h2>Картки чату</h2>
             <button id="drawChatCardBtn" class="ghost-button" type="button" data-auth-control>Витягнути</button>
           </div>
           <div id="chatCardsList" class="cards-list"></div>
+          </details>
         </article>
 
         <article class="panel">
+          <details class="mobile-collapse" data-mobile-collapse>
+            <summary>Логи</summary>
           <div class="panel-title-row">
             <h2>Логи</h2>
             <button id="clearLogBtn" class="ghost-button" type="button" data-auth-control>Очистити</button>
           </div>
           <div id="eventLog" class="event-log"></div>
+          </details>
         </article>
       </section>
 

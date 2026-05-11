@@ -199,6 +199,17 @@ function clearLogs() {
   render();
 }
 
+function setupMobileCollapses() {
+  const query = window.matchMedia("(max-width: 680px)");
+  const sync = () => {
+    document.querySelectorAll("[data-mobile-collapse]").forEach((node) => {
+      node.open = !query.matches;
+    });
+  };
+  sync();
+  query.addEventListener("change", sync);
+}
+
 function bindEvents() {
   if (el.loginBtn) el.loginBtn.addEventListener("click", login);
   if (el.logoutBtn) el.logoutBtn.addEventListener("click", logout);
@@ -261,6 +272,7 @@ async function bootstrap() {
   const gameData = await loadGameData();
   store.state = gameData.state || createDefaultState();
   store.saveSlots = gameData.saveSlots || [];
+  setupMobileCollapses();
   bindEvents();
   render();
 
