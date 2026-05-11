@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DunchLand</title>
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <nav class="social-links" aria-label="Соцмережі dunchoff">
+        <a class="social-link social-twitch" href="https://www.twitch.tv/dunchoff" target="_blank" rel="noreferrer" aria-label="Twitch dunchoff"><img src="./assets/logo/twitch.png" alt="" /></a>
+        <a class="social-link social-instagram" href="https://www.instagram.com/dunchoff/" target="_blank" rel="noreferrer" aria-label="Instagram dunchoff"><img src="./assets/logo/instagram.png" alt="" /></a>
+        <a class="social-link social-tiktok" href="https://www.tiktok.com/@dunchoff" target="_blank" rel="noreferrer" aria-label="TikTok dunchoff"><img src="./assets/logo/tiktok.png" alt="" /></a>
+        <a class="social-link social-youtube" href="https://www.youtube.com/@dunchoff" target="_blank" rel="noreferrer" aria-label="YouTube dunchoff"><img src="./assets/logo/youtube.png" alt="" /></a>
+        <a class="social-link social-telegram" href="https://t.me/dunchoff_live" target="_blank" rel="noreferrer" aria-label="Telegram dunchoff live"><img src="./assets/logo/telegram.png" alt="" /></a>
+      </nav>
+      <section class="topbar">
+        <div>
+          <h1>DunchLand</h1>
+          <p>Настільна гра з категоріями, картками, колесами та локальними сейвами.</p>
+        </div>
+        <div class="topbar-actions">
+          <span id="turnBadge" class="badge">Хід 1</span>
+          <section class="auth-panel">
+            <span id="authStatus" class="auth-status">Вхід</span>
+            <div id="loginControls" class="auth-controls">
+              <input id="loginInput" type="text" autocomplete="username" placeholder="Логін" />
+              <input id="passwordInput" type="password" autocomplete="current-password" placeholder="Пароль" />
+              <button id="loginBtn" class="primary-button auth-round-button" type="button">Увійти</button>
+            </div>
+            <button id="logoutBtn" class="ghost-button auth-round-button" type="button" hidden>Вийти</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="game-layout">
+        <aside class="panel player-panel">
+          <h2>Учасники</h2>
+          <div id="playersList" class="players-list"></div>
+
+          <div class="dice-card">
+            <div>
+              <p class="label-text">Кубики dunchoff</p>
+              <div id="diceResult" class="dice-result">-</div>
+            </div>
+            <button id="rollBtn" class="primary-button" type="button" data-auth-control>Кинути</button>
+          </div>
+
+          <div class="dice-card chat-dice-card">
+            <div>
+              <p class="label-text">Кубики чату</p>
+              <div id="chatDiceResult" class="dice-result">-</div>
+            </div>
+          </div>
+
+          <div id="playerSummary" class="summary-list"></div>
+
+          <section id="reviewPanel" class="review-panel" data-auth-control>
+            <h3>Відгук на поле</h3>
+            <p id="reviewSectorHint" class="label-text">Поточне поле dunchoff</p>
+            <input id="reviewTitleInput" type="text" placeholder="Назва фільму / серіалу / відео" />
+            <div class="field-grid">
+              <label>
+                Оцінка
+                <input id="reviewRatingInput" type="number" min="1" max="10" step="1" placeholder="1-10" />
+              </label>
+              <label>
+                Тип
+                <input id="reviewTypeInput" type="text" readonly />
+              </label>
+            </div>
+            <textarea id="reviewTextInput" rows="3" placeholder="Короткий відгук"></textarea>
+            <button id="saveReviewBtn" class="primary-button" type="button">Додати в щоденник</button>
+          </section>
+        </aside>
+
+        <section class="board-wrap">
+          <div class="board-toolbar">
+            <div>
+              <h2>Дошка</h2>
+              <p id="selectedHint">Натисни поле, щоб переглянути його опис.</p>
+            </div>
+          <div class="toolbar-actions">
+              <button id="editSectorBtn" class="primary-button" type="button" data-auth-control>Редагувати</button>
+            </div>
+          </div>
+          <div id="board" class="board" aria-label="Game board"></div>
+        </section>
+
+        <aside class="side-stack">
+          <section class="panel wheel-launch-panel">
+            <div class="side-action-row">
+              <button id="openCardWheelBtn" class="primary-button big-action action-card-wheel" type="button">Колесо карток</button>
+              <button id="openCustomWheelBtn" class="ghost-button big-action action-custom-wheel" type="button">Своє<br />колесо</button>
+            </div>
+            <button id="openRulesBtn" class="ghost-button big-action action-rules" type="button">Довідник</button>
+            <button id="openGameRulesBtn" class="ghost-button big-action action-rules" type="button">Правила</button>
+            <button id="openCardsGuideBtn" class="ghost-button big-action action-cards" type="button">Картки</button>
+            <button id="openReviewsBtn" class="ghost-button big-action action-reviews" type="button">Щоденник</button>
+          </section>
+        </aside>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel">
+          <div class="panel-title-row">
+            <h2>Картки dunchoff</h2>
+            <button id="drawCardBtn" class="ghost-button" type="button" data-auth-control>Витягнути</button>
+          </div>
+          <div id="cardsList" class="cards-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title-row">
+            <h2>Картки чату</h2>
+            <button id="drawChatCardBtn" class="ghost-button" type="button" data-auth-control>Витягнути</button>
+          </div>
+          <div id="chatCardsList" class="cards-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title-row">
+            <h2>Логи</h2>
+            <button id="clearLogBtn" class="ghost-button" type="button" data-auth-control>Очистити</button>
+          </div>
+          <div id="eventLog" class="event-log"></div>
+        </article>
+      </section>
+
+      <section class="panel saves-panel">
+        <div class="panel-title-row">
+          <h2>Збереження</h2>
+          <div class="toolbar-actions">
+            <button id="saveSlotBtn" class="primary-button" type="button" data-auth-control>Зберегти слот</button>
+            <button id="resetGameBtn" class="ghost-button" type="button" data-auth-control>Нова гра</button>
+            <button id="exportBtn" class="ghost-button" type="button">Експорт</button>
+            <label class="import-button" data-auth-control>
+              Імпорт
+              <input id="importInput" type="file" accept="application/json" />
+            </label>
+          </div>
+        </div>
+        <div id="saveSlots" class="save-slots"></div>
+      </section>
+    </main>
+
+    <dialog id="cardWheelDialog" class="modal wheel-modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2>Колесо карток</h2>
+          <button id="closeCardWheelBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <label>
+          Скільки секунд крутиться
+          <input id="cardWheelDurationInput" type="number" min="1" max="12" step="1" value="4" />
+        </label>
+        <div class="wheel-wrap">
+          <div class="wheel-pointer"></div>
+          <div id="cardWheelDisk" class="wheel-disk" aria-label="Card wheel"></div>
+        </div>
+            <button id="spinCardWheelBtn" class="primary-button" type="button" data-auth-control>Крутити</button>
+        <p id="cardWheelResult" class="wheel-result">Результат з'явиться тут.</p>
+      </form>
+    </dialog>
+
+    <dialog id="customWheelDialog" class="modal wheel-modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2>Своє колесо</h2>
+          <button id="closeCustomWheelBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <label>
+          Варіанти
+          <textarea id="customWheelInput" rows="4" placeholder="Введи значення через кому або з нового рядка"></textarea>
+        </label>
+        <label>
+          Скільки секунд крутиться
+          <input id="customWheelDurationInput" type="number" min="1" max="12" step="1" value="4" />
+        </label>
+        <div class="wheel-wrap compact-wheel-wrap">
+          <div class="wheel-pointer"></div>
+          <div id="customWheelDisk" class="wheel-disk compact-wheel" aria-label="Custom wheel"></div>
+        </div>
+        <button id="spinCustomWheelBtn" class="primary-button" type="button" data-auth-control>Крутити</button>
+        <p id="customWheelResult" class="wheel-result">Додай варіанти й крути.</p>
+      </form>
+    </dialog>
+
+    <dialog id="diceDialog" class="modal dice-modal">
+      <div class="modal-card dice-modal-card">
+        <p id="diceDialogTitle" class="label-text">Кидок кубиків</p>
+        <div class="dice-animation">
+          <span id="diceOne">?</span>
+          <span id="diceTwo">?</span>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="sectorInfoDialog" class="modal wide-modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2 id="sectorInfoTitle">Поле #1</h2>
+          <button id="closeSectorInfoBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <div id="sectorInfoBody" class="sector-info-body"></div>
+      </form>
+    </dialog>
+
+    <dialog id="sectorDialog" class="modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2 id="sectorDialogTitle">Поле #1</h2>
+          <button id="closeSectorDialogBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <label>
+          Назва поля
+          <input id="sectorNameInput" type="text" />
+        </label>
+        <label>
+          Тип
+          <select id="sectorTypeInput"></select>
+        </label>
+        <div class="field-grid">
+          <label>
+            Колір
+            <input id="sectorColorInput" type="color" />
+          </label>
+          <label>
+            База очок
+            <input id="sectorPointsInput" type="number" step="1" />
+          </label>
+        </div>
+        <label>
+          Короткий опис
+          <input id="sectorTaglineInput" type="text" />
+        </label>
+        <label>
+          Детальний опис
+          <textarea id="sectorDescriptionInput" rows="4"></textarea>
+        </label>
+        <div class="field-grid">
+          <label>
+            Дія поля
+            <select id="sectorActionInput"></select>
+          </label>
+          <label>
+            Значення дії
+            <input id="sectorActionValueInput" type="number" step="1" placeholder="Очки або номер поля" />
+          </label>
+        </div>
+        <div class="toolbar-actions">
+          <button id="cancelSectorBtn" class="ghost-button" type="button">Скасувати</button>
+          <button id="saveSectorBtn" class="primary-button" type="button">Зберегти</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="rulesDialog" class="modal wide-modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2>Довідник</h2>
+          <button id="closeRulesBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <div id="rulesBody" class="rules-body"></div>
+      </form>
+    </dialog>
+
+    <dialog id="gameRulesDialog" class="modal wide-modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2>Правила</h2>
+          <button id="closeGameRulesBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <div id="gameRulesBody" class="game-rules-body"></div>
+      </form>
+    </dialog>
+
+    <dialog id="reviewsDialog" class="modal wide-modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2>Щоденник оцінок</h2>
+          <button id="closeReviewsBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <div id="reviewsBody" class="reviews-body"></div>
+      </form>
+    </dialog>
+
+    <dialog id="cardsGuideDialog" class="modal wide-modal">
+      <form method="dialog" class="modal-card">
+        <div class="panel-title-row">
+          <h2>Картки</h2>
+          <button id="closeCardsGuideBtn" class="ghost-button icon-button" type="button">&times;</button>
+        </div>
+        <div id="cardsGuideBody" class="cards-guide-body"></div>
+      </form>
+    </dialog>
+
+    <script src="./scripts/store.js"></script>
+    <script src="./scripts/data/sectors.js"></script>
+    <script src="./scripts/utils/clone.js"></script>
+    <script src="./scripts/state.js"></script>
+    <script src="./scripts/storage.js"></script>
+    <script src="./scripts/utils/dom.js"></script>
+    <script src="./scripts/data/cards.js"></script>
+    <script src="./scripts/utils/random.js"></script>
+    <script src="./scripts/game/constants.js"></script>
+    <script src="./scripts/game/rules.js"></script>
+    <script src="./scripts/game/movement.js"></script>
+    <script src="./scripts/game/cards.js"></script>
+    <script src="./scripts/game/wheel.js"></script>
+    <script src="./scripts/data/labels.js"></script>
+    <script src="./scripts/utils/escape.js"></script>
+    <script src="./scripts/render/board.js"></script>
+    <script src="./scripts/render/cards.js"></script>
+    <script src="./scripts/render/dialogs.js"></script>
+    <script src="./scripts/render/logs.js"></script>
+    <script src="./scripts/render/players.js"></script>
+    <script src="./scripts/render/saves.js"></script>
+    <script src="./scripts/render/summary.js"></script>
+    <script src="./scripts/render/wheels.js"></script>
+    <script src="./scripts/main.js"></script>
+  </body>
+</html>
